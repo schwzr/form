@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Form</title>
+<meta name="description" content="Can you fill out a simple form?">
+<meta property="og:title" content="Form">
+<meta property="og:description" content="Can you fill out a simple form? Shouldn't take more than a minute.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="css/awt.css">
+</head>
+<body>
+
+<!-- Fake Java loading splash -->
+<div id="splash">
+  <div class="splash-box">
+    <div class="splash-cup">&#9749;</div>
+    <div class="splash-text">Loading Java applet...</div>
+    <div class="progress"><div class="progress-bar" id="splash-bar"></div></div>
+    <div class="splash-pct" id="splash-pct">0%</div>
+  </div>
+</div>
+
+<div id="desktop">
+  <div class="frame" id="frame">
+    <div class="titlebar">
+      <span class="title-icon">&#9749;</span>
+      <span class="title-text">Form - Java Applet Window</span>
+      <span class="title-buttons">
+        <button type="button" class="tb-btn" id="tb-min" aria-label="Minimize">_</button>
+        <button type="button" class="tb-btn" id="tb-max" aria-label="Maximize">&#9633;</button>
+        <button type="button" class="tb-btn" id="tb-close" aria-label="Close">&#215;</button>
+      </span>
+    </div>
+
+    <div class="menubar">
+      <span class="menu-item" data-menu="File"><u>F</u>ile</span>
+      <span class="menu-item" data-menu="Edit"><u>E</u>dit</span>
+      <span class="menu-item" data-menu="Help"><u>H</u>elp</span>
+    </div>
+
+    <form id="form" class="panel" novalidate autocomplete="off">
+      <div class="intro">Please fill out the form below. All fields are required.</div>
+
+      <!-- Name -->
+      <div class="row">
+        <label class="lbl" for="f-name">Full name:</label>
+        <div class="ctl"><input type="text" id="f-name" class="awt-input" spellcheck="false"></div>
+      </div>
+
+      <!-- Email -->
+      <div class="row">
+        <label class="lbl" for="f-email">E-mail:</label>
+        <div class="ctl">
+          <input type="text" id="f-email" class="awt-input" inputmode="email" spellcheck="false" autocapitalize="off">
+          <button type="button" class="awt-btn small" id="f-email-at">Insert @ symbol...</button>
+        </div>
+      </div>
+
+      <!-- Birthdate -->
+      <fieldset class="group" id="g-birth">
+        <legend>Date of birth</legend>
+        <div class="sub">
+          <span class="sublbl">Year:</span>
+          <input type="range" id="b-year-slider" min="1" max="9999" step="1" value="1" class="awt-range">
+          <span class="spinner">
+            <input type="text" id="b-year" class="awt-input tiny" readonly value="1">
+            <span class="spin-btns">
+              <button type="button" class="awt-btn spin" id="b-year-up">&#9650;</button>
+              <button type="button" class="awt-btn spin" id="b-year-down">&#9660;</button>
+            </span>
+          </span>
+        </div>
+        <div class="sub">
+          <span class="sublbl">Month:</span>
+          <input type="text" id="b-month" class="awt-input short" readonly>
+          <button type="button" class="awt-btn" id="b-month-next">Next month &#9654;</button>
+        </div>
+        <div class="sub">
+          <span class="sublbl">Day:</span>
+          <input type="text" id="b-day" class="awt-input tiny" readonly>
+          <button type="button" class="awt-btn" id="b-day-next">Next day &#9654;</button>
+          <button type="button" class="awt-btn" id="b-day-ff">Fast forward &#9654;&#9654;</button>
+        </div>
+      </fieldset>
+
+      <!-- Height -->
+      <fieldset class="group" id="g-height">
+        <legend>Height</legend>
+        <div class="height-wrap">
+          <div class="height-left">
+            <div class="sub">
+              <span class="sublbl">Unit:</span>
+              <select id="h-unit" class="awt-select"></select>
+            </div>
+            <div class="sub">
+              <span class="sublbl">Value:</span>
+              <input type="text" id="h-value" class="awt-input short" readonly>
+            </div>
+            <div class="keypad" id="h-keypad"></div>
+          </div>
+          <div class="height-ruler" id="h-ruler">
+            <div class="ruler-scale"></div>
+            <div class="stick" id="h-stick">
+              <div class="stick-head"></div>
+              <div class="stick-body"></div>
+            </div>
+            <div class="ruler-cm" id="h-cm">0 cm</div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Password -->
+      <div class="row">
+        <label class="lbl" for="f-pass">Password:</label>
+        <div class="ctl"><input type="password" id="f-pass" class="awt-input" autocomplete="new-password"></div>
+      </div>
+      <ul class="rules" id="f-pass-rules"></ul>
+
+      <div class="row">
+        <label class="lbl" for="f-pass2">Confirm password:</label>
+        <div class="ctl"><input type="password" id="f-pass2" class="awt-input" autocomplete="new-password"></div>
+      </div>
+      <div class="preview">Preview: <span id="f-pass2-preview"></span></div>
+
+      <!-- Color -->
+      <div class="row">
+        <label class="lbl" for="f-color">Favorite color:</label>
+        <div class="ctl"><select id="f-color" class="awt-select wide"></select></div>
+      </div>
+
+      <!-- Terms -->
+      <fieldset class="group">
+        <legend>Terms and Conditions</legend>
+        <textarea id="f-terms-text" class="awt-textarea" readonly></textarea>
+        <label class="check"><input type="checkbox" id="f-terms" disabled> I have read and agree to the Terms and Conditions</label>
+      </fieldset>
+
+      <!-- CAPTCHA -->
+      <fieldset class="group">
+        <legend>Verification</legend>
+        <div class="captcha-q">Select all squares containing a <b>Java applet</b>.</div>
+        <div class="captcha" id="f-captcha"></div>
+        <button type="button" class="awt-btn" id="f-captcha-verify">Verify</button>
+        <span class="captcha-status" id="f-captcha-status"></span>
+      </fieldset>
+
+      <div class="buttons">
+        <button type="button" class="awt-btn submit" id="f-submit">Submit</button>
+      </div>
+    </form>
+
+    <div class="statusbar">
+      <span class="status-cell grow" id="status-msg">Applet started.</span>
+      <span class="status-cell" id="status-attempts">Attempts: 0</span>
+      <span class="status-cell" id="status-time">00:00</span>
+    </div>
+    <div class="applet-warning">Warning: Applet Window</div>
+  </div>
+</div>
+
+<!-- Win screen -->
+<div id="win" hidden>
+  <div class="frame win-frame">
+    <div class="titlebar"><span class="title-icon">&#9749;</span><span class="title-text">Success</span></div>
+    <div class="panel win-panel">
+      <h1>Congratulations Richard &#127881;</h1>
+      <p>You filled out the form.</p>
+      <p class="win-stats">Time: <b id="win-time"></b> &middot; Attempts: <b id="win-attempts"></b></p>
+      <div class="buttons">
+        <button type="button" class="awt-btn" id="win-share">Copy my time</button>
+        <button type="button" class="awt-btn" id="win-again">Play again</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="dialog-layer"></div>
+
+<script src="js/dialogs.js"></script>
+<script src="js/evasive.js"></script>
+<script src="js/main.js"></script>
+<script src="js/fields/name.js"></script>
+<script src="js/fields/email.js"></script>
+<script src="js/fields/birthdate.js"></script>
+<script src="js/fields/height.js"></script>
+<script src="js/fields/password.js"></script>
+<script src="js/fields/color.js"></script>
+<script src="js/fields/terms.js"></script>
+<script src="js/fields/captcha.js"></script>
+<script src="js/fields/submit.js"></script>
+<script>Game.start();</script>
+</body>
+</html>
