@@ -145,6 +145,7 @@ var Game = (function () {
   function showWin(time) {
     $("desktop").hidden = true;
     $("win").hidden = false;
+    $("win-name").textContent = $("f-name").value.trim();
     $("win-time").textContent = time;
     $("win-attempts").textContent = attempts;
 
