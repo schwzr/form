@@ -133,6 +133,7 @@ var Game = (function () {
     won = true;
     clearInterval(timer);
     var time = elapsed();
+    $("win-name").textContent = $("f-name").value.trim();
     status("Submitting...");
     busy(1500)
       .then(function () { return Dialog.alert("Form submitted successfully!", "info", "Success"); })
